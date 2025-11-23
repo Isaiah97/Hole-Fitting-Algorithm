@@ -9,4 +9,7 @@ operations, and each choice calls the appropriate procedure, where the choices a
 5) Defragment memory
 6) Quit program and free memory
 **/
-private class 
+#include <stdlib.h>
+#include <stdio.h>
+
+#define pm_size 1024
