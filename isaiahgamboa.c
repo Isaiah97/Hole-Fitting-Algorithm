@@ -24,3 +24,16 @@ Block;
 int pm_size = 0;
 Block *head = NULL;
 
+void print_menu(void);
+void print_allocated_blocks(void);
+
+void enter_parameters(void);
+void allocated_first_fit(void);
+void allocated_best_fit(void);
+void deallocate_block(void);
+void defragment_memory(void);
+
+Block *find_block_by_id(int id);
+bool id_exists(int id);
+void clear_all_blocks(void);
+
