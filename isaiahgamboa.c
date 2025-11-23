@@ -50,7 +50,42 @@ int main(void) {
 				printf("Invalid input. Please enter a number between 1 and 6. \n");
 			continue;
 		}
+		switch (choice) {
+		case 1:
+			enter_parameters();
+			print_allocated_blocks();
+			break;
 
-		
+		case 2:
+			allocated_first_fit();
+			print_allocated_blocks();
+			break;
+
+		case 3:
+			allocated_best_fit();
+			print_allocated_blocks();
+			break;
+
+		case 4:
+			deallocate_block();
+			print_allocated_blocks();
+			break;
+
+		case 5:
+			defragment_memory();
+			print_allocated_blocks();
+			break;
+
+		case 6:
+			printf("Quitting program...\n");
+			running = 0;
+			break;
+
+		default:
+			printf("Invalid selection. Please enter a number between 1 and 6.\n");
+			break;
+		}
 	}
+	clear_all_blocks();
+	return 0;
 }
