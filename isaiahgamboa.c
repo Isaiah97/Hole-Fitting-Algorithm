@@ -37,3 +37,20 @@ Block *find_block_by_id(int id);
 bool id_exists(int id);
 void clear_all_blocks(void);
 
+int main(void) {
+	int choice;
+	int running = 1;
+
+	while (running) {
+		print_menu();
+		printf("\nEnter selection: ");
+		if(scanf("%d", &choice) != 1) {
+			int c;
+			while((c = getchar()) != '\n' && c!= EOF) { }
+				printf("Invalid input. Please enter a number between 1 and 6. \n");
+			continue;
+		}
+
+		
+	}
+}
