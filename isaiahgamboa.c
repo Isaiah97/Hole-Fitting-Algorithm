@@ -11,5 +11,16 @@ operations, and each choice calls the appropriate procedure, where the choices a
 **/
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
-#define pm_size 1024
+typedef struct Block {
+	int id;
+	int start;
+	int end;
+	struct Block *next;
+}
+Block;
+
+int pm_size = 0;
+Block *head = NULL;
+
