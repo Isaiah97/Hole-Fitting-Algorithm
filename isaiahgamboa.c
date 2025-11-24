@@ -320,8 +320,39 @@ void allocated_best_fit(void) {
     iter->next = new_block;
 }
 	
+void deallocate_block(void){
+	int id;
 
-void deallocate_block(void);
+	printf("Enter block id: ");
+	if (scanf("%d", &id) != 1) {
+		int c;
+		while ((c = getchar()) != '\n' && c != EOF) { }
+			printf("Invalid id.\n");
+		return;
+	}
+
+	Block *curr = head;
+	Block *prev = NULL;
+
+	while (curr != NULL && curr->id != id) {
+		prev = curr;
+		curr = curr->next;
+	}
+
+	if (curr == NULL) {
+		printf("Error: Block id not found. Deallocation rejected.\n");
+		return;
+	}
+
+	if (prev == NULL) {
+		head = curr->next;
+	}else{
+		prev->next = curr->next;
+	}
+
+	free(curr);
+}
+
 void defragment_memory(void);
 
 Block *find_block_by_id(int id);
