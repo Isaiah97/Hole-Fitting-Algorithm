@@ -48,7 +48,22 @@ void print_allocated_blocks(void) {
 }
 
 
-void enter_parameters(void);
+void enter_parameters(void) {
+	int size;
+
+	printf("Enter size of physical memory: ");
+	if (scanf("%d", &size) != 1 || size <= 0) {
+
+		int c;
+		while ((c = getchar()) != '\n' && c != EOF) { }
+			printf("Invalid memory size. Keeping previous settings.\n");
+		return;
+	}
+	clear_all_blocks();
+	pm_size = size;
+}
+
+
 void allocated_first_fit(void){
 	int id, block_size;
 
