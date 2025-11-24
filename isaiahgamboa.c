@@ -353,7 +353,28 @@ void deallocate_block(void){
 	free(curr);
 }
 
-void defragment_memory(void);
+void defragment_memory(void) {
+	if (pm_size <= 0) {
+		return;
+	}
+
+	if (head == NULL) {
+		return;
+	}
+
+	int current_start = 0;
+	Block *curr = head;
+
+
+	while (curr != NULL) {
+		int size = curr->end - curr->start;
+		curr->start = current_start;
+		curr->end = curr->start + size;
+		current_start = curr->end;
+
+		curr = curr->next;
+	}
+}
 
 Block *find_block_by_id(int id);
 bool id_exists(int id);
