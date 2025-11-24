@@ -24,7 +24,17 @@ Block;
 int pm_size = 0;
 Block *head = NULL;
 
-void print_menu(void);
+void print_menu(void){
+	printf("\nHole-fitting Algorithms\n");
+    printf("---------------------------\n");
+    printf("1) Enter parameters\n");
+    printf("2) Allocate memory for block using First-fit\n");
+    printf("3) Allocate memory for block using Best-fit\n");
+    printf("4) Deallocate memory for block\n");
+    printf("5) Defragment memory\n");
+    printf("6) Quit program\n\n");
+}
+
 void print_allocated_blocks(void);
 
 void enter_parameters(void);
