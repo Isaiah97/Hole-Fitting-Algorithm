@@ -40,7 +40,7 @@ Block *head = NULL;
 
 void print_menu(void){
 	printf("\nHole-fitting Algorithms\n");
-    printf("---------------------------\n");
+    printf("------------------------\n");
     printf("1) Enter parameters\n");
     printf("2) Allocate memory for block using First-fit\n");
     printf("3) Allocate memory for block using Best-fit\n");
@@ -53,7 +53,7 @@ void print_allocated_blocks(void) {
 	Block *curr = head;
 
 	printf("\nID 	Start 	End\n");
-	printf("-----------------");
+	printf("--------------------");
 
 	while (curr != NULL) {
 		printf("%d\t%d\t%d\n", curr->id, curr->start, curr->end);
