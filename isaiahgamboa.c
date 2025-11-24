@@ -78,8 +78,83 @@ void allocated_first_fit(void){
 		return;
 	}
 
-	
+	Block *curr = head;
+	Block *prev = NULL;
+
+	int hole_start;
+	int hole_end;
+	int hole_size;
+
+	hole_start = 0;
+	hole_end = head->start;	
+	hole_size = hole_end - hole_start;
+
+	if (hole_size >= block_size) {
+		Block *new_block = (Block *)malloc(sizeof(Block));
+		if (!new_block) {
+			printf("Error: Memory allocation failed.\n");
+			return;
+		}
+
+		new_block->id = id;
+		new_block->start = hole_start;
+		new_block->end = hole_start + block_size;
+		new_block->next = head;
+		head = new_block;
+		return;
+	}
+
+	prev = head;
+	curr = head->next;
+
+	while (curr != NULL) {
+		hole_start = prev->end;
+		hole_end = curr->start;
+		hole_size = hole_end - hole_start;
+
+		if (hole_size >= block_size) {
+			Block *new_block = (Block *)malloc(sizeof(Block));
+			if (!new_block) {
+				printf("Error: Memory allocation failed.\n");
+				return;
+			}
+
+			new_block->id = id;
+			new_block->start = hole_start;
+			new_block->end = hole_start	+ block_size;
+
+			new_block->next = curr;
+			prev->next = new_block;
+			return;
+		}
+
+		prev = curr;
+		curr = curr->next;
+	}
+
+	hole_start = prev->end;
+	hole_end = pm_size;
+	hole_size = hole_end - hole_start;
+
+	if (hole_size >= block_size) {
+		Block *new_block = (Block *)malloc(sizeof(Block));
+		if(!new_block) {
+			printf("Error: Memory allocation failed");
+			return;
+		}
+
+		new_block->id = id;
+		new_block->start = hole_start;
+		new_block->end = hole_start + block_size;
+		new_block->next = NULL;
+
+		prev->next = new_block;
+		return;
+	}
+
+	printf("Error: Not enough memory to allocate block.\n");
 }
+
 void allocated_best_fit(void);
 void deallocate_block(void);
 void defragment_memory(void);
