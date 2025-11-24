@@ -35,7 +35,18 @@ void print_menu(void){
     printf("6) Quit program\n\n");
 }
 
-void print_allocated_blocks(void);
+void print_allocated_blocks(void) {
+	Block *curr = head;
+
+	printf("\nID 	Start 	End\n");
+	printf("-----------------");
+
+	while (curr != NULL) {
+		printf("%d\t%d\t%d\n", curr->id, curr->start, surr->end);
+		curr = curr->next;
+	}
+}
+
 
 void enter_parameters(void);
 void allocated_first_fit(void){
