@@ -430,7 +430,7 @@ int main(void) {
 		switch (choice) {
 		case 1:
 			enter_parameters();
-			print_allocated_blocks();
+			//print_allocated_blocks();
 			break;
 
 		case 2:
