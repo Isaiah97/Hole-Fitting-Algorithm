@@ -392,7 +392,13 @@ bool id_exists(int id) {
 }
 
 void clear_all_blocks(void){
-	
+	Block *curr = head;
+	while (curr != NULL) {
+		Block *temp = curr;
+		curr = curr->next;
+		free(temp);
+	}
+	head = NULL;
 }
 
 int main(void) {
