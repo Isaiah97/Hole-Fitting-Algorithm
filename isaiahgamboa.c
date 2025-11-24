@@ -376,9 +376,24 @@ void defragment_memory(void) {
 	}
 }
 
-Block *find_block_by_id(int id);
-bool id_exists(int id);
-void clear_all_blocks(void);
+Block *find_block_by_id(int id){
+	Block *curr = head;
+	while(curr != NULL) {
+		if (curr->id == id) {
+			return curr;
+		}
+		curr = curr->next;
+	}
+	return NULL;
+}
+
+bool id_exists(int id) {
+	return find_block_by_id(id) != NULL;
+}
+
+void clear_all_blocks(void){
+	
+}
 
 int main(void) {
 	int choice;
