@@ -53,7 +53,7 @@ void print_allocated_blocks(void) {
 	Block *curr = head;
 
 	printf("\nID 	Start 	End\n");
-	printf("--------------------");
+	printf("--------------------\n");
 
 	while (curr != NULL) {
 		printf("%d\t%d\t%d\n", curr->id, curr->start, curr->end);
