@@ -21,6 +21,20 @@ typedef struct Block {
 }
 Block;
 
+void print_menu(void);
+void print_allocated_blocks(void);
+
+void enter_parameters(void);
+void allocate_first_fit(void);
+void allocate_best_fit(void);
+void deallocate_block(void);
+void defragment_memory(void);
+
+Block *find_block_by_id(int id);
+bool id_exists(int id);
+void clear_all_blocks(void);
+
+
 int pm_size = 0;
 Block *head = NULL;
 
@@ -42,7 +56,7 @@ void print_allocated_blocks(void) {
 	printf("-----------------");
 
 	while (curr != NULL) {
-		printf("%d\t%d\t%d\n", curr->id, curr->start, surr->end);
+		printf("%d\t%d\t%d\n", curr->id, curr->start, curr->end);
 		curr = curr->next;
 	}
 }
