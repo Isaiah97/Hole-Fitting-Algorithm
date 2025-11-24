@@ -9,6 +9,7 @@ operations, and each choice calls the appropriate procedure, where the choices a
 5) Defragment memory
 6) Quit program and free memory
 **/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
