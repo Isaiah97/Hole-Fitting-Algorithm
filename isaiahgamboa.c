@@ -63,7 +63,6 @@ void enter_parameters(void) {
 	pm_size = size;
 }
 
-
 void allocated_first_fit(void){
 	int id, block_size;
 
@@ -191,7 +190,137 @@ void allocated_first_fit(void){
 	printf("Error: Not enough memory to allocate block.\n");
 }
 
-void allocated_best_fit(void);
+void allocated_best_fit(void) {
+	int id;
+	int block_size;
+
+	if (pm_size <= 0) {
+		printf("Error: Physical memory size not set. Choose ")
+		return;
+	}
+
+	printf("Enter block id: ");
+	if (scanf("%d", &id) != 1){
+		int c;
+		 int c;
+        while ((c = getchar()) != '\n' && c != EOF) { }
+        printf("Invalid id.\n");
+        return;
+    }
+
+    printf("Enter block size: ");
+    if (scanf("%d", &block_size) != 1 || block_size <= 0) {
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF) { }
+        printf("Invalid block size.\n");
+        return;
+    }
+
+    if (id_exists(id)) {
+        printf("Error: Duplicate block id. Allocation rejected.\n");
+        return;
+    }
+
+    if (head == NULL) {
+        if (block_size > pm_size) {
+            printf("Error: Not enough memory to allocate block.\n");
+            return;
+        }
+
+        Block *new_block = (Block *)malloc(sizeof(Block));
+        if (!new_block) {
+            printf("Error: Memory allocation failed.\n");
+            return;
+        }
+
+        new_block->id = id;
+        new_block->start = 0;
+        new_block->end = block_size;
+        new_block->next = NULL;
+
+        head = new_block;
+        return;
+    }
+
+    int best_hole_found = 0;
+    int best_hole_start = -1;
+    int best_hole_size = pm_size + 1; 
+
+    Block *prev = NULL;
+    Block *curr = head;
+
+    int hole_start, hole_end, hole_size;
+
+    hole_start = 0;
+    hole_end = head->start;
+    hole_size = hole_end - hole_start;
+
+    if (hole_size >= block_size && hole_size < best_hole_size) {
+        best_hole_found = 1;
+        best_hole_start = hole_start;
+        best_hole_size = hole_size;
+    }
+
+    prev = head;
+    curr = head->next;
+
+    while (curr != NULL) {
+        hole_start = prev->end;
+        hole_end = curr->start;
+        hole_size = hole_end - hole_start;
+
+        if (hole_size >= block_size && hole_size < best_hole_size) {
+            best_hole_found = 1;
+            best_hole_start = hole_start;
+            best_hole_size = hole_size;
+        }
+
+        prev = curr;
+        curr = curr->next;
+    }
+
+    hole_start = prev->end;
+    hole_end = pm_size;
+    hole_size = hole_end - hole_start;
+
+    if (hole_size >= block_size && hole_size < best_hole_size) {
+        best_hole_found = 1;
+        best_hole_start = hole_start;
+        best_hole_size = hole_size;
+    }
+
+    if (!best_hole_found) {
+        printf("Error: Not enough memory to allocate block.\n");
+        return;
+    }
+
+    Block *new_block = (Block *)malloc(sizeof(Block));
+    if (!new_block) {
+        printf("Error: Memory allocation failed.\n");
+        return;
+    }
+
+    new_block->id = id;
+    new_block->start = best_hole_start;
+    new_block->end = best_hole_start + block_size;
+    new_block->next = NULL;
+
+    if (new_block->start < head->start) {
+        new_block->next = head;
+        head = new_block;
+        return;
+    }
+
+    Block *iter = head;
+    while (iter->next != NULL && iter->next->start < new_block->start) {
+        iter = iter->next;
+    }
+
+    new_block->next = iter->next;
+    iter->next = new_block;
+}
+	
+
 void deallocate_block(void);
 void defragment_memory(void);
 
