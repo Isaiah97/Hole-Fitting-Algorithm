@@ -103,7 +103,7 @@ void allocated_first_fit(void){
 
 	if (id_exists(id)) {
 		printf("Error: Duplicate block id. Allocation rejected. \n");
-		return
+		return;
 	}
 
 	if (head == NULL) {
@@ -209,14 +209,13 @@ void allocated_best_fit(void) {
 	int block_size;
 
 	if (pm_size <= 0) {
-		printf("Error: Physical memory size not set. Choose ")
+		printf("Error: Physical memory size not set. Choose ");
 		return;
 	}
 
 	printf("Enter block id: ");
 	if (scanf("%d", &id) != 1){
 		int c;
-		 int c;
         while ((c = getchar()) != '\n' && c != EOF) { }
         printf("Invalid id.\n");
         return;
