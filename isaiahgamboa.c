@@ -10,10 +10,13 @@ operations, and each choice calls the appropriate procedure, where the choices a
 6) Quit program and free memory
 **/
 
+//establishing library
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 
+
+//define Block for the algorithms
 typedef struct Block {
 	int id;
 	int start;
@@ -22,6 +25,7 @@ typedef struct Block {
 }
 Block;
 
+//helpers
 void print_menu(void);
 void print_allocated_blocks(void);
 
@@ -39,6 +43,8 @@ void clear_all_blocks(void);
 int pm_size = 0;
 Block *head = NULL;
 
+
+//print table
 void print_menu(void){
 	printf("\nHole-fitting Algorithms\n");
     printf("------------------------\n");
@@ -78,6 +84,8 @@ void enter_parameters(void) {
 	pm_size = size;
 }
 
+
+//following first fit algorithm covering each case.
 void allocated_first_fit(void){
 	int id, block_size;
 
@@ -205,6 +213,8 @@ void allocated_first_fit(void){
 	printf("Error: Not enough memory to allocate block.\n");
 }
 
+
+//following best fit algorithm covering each case.
 void allocated_best_fit(void) {
 	int id;
 	int block_size;
@@ -333,7 +343,9 @@ void allocated_best_fit(void) {
     new_block->next = iter->next;
     iter->next = new_block;
 }
-	
+
+
+//for following the sample output i need to deallocate blocks
 void deallocate_block(void){
 	int id;
 
@@ -352,7 +364,7 @@ void deallocate_block(void){
 		prev = curr;
 		curr = curr->next;
 	}
-
+//struggled here gonna need to take a break
 	if (curr == NULL) {
 		printf("Error: Block id not found. Deallocation rejected.\n");
 		return;
@@ -367,6 +379,7 @@ void deallocate_block(void){
 	free(curr);
 }
 
+//defragment the memory
 void defragment_memory(void) {
 	if (pm_size <= 0) {
 		return;
@@ -401,10 +414,13 @@ Block *find_block_by_id(int id){
 	return NULL;
 }
 
+//just to make sure the ids exists
 bool id_exists(int id) {
 	return find_block_by_id(id) != NULL;
 }
 
+
+//clearing up memory
 void clear_all_blocks(void){
 	Block *curr = head;
 	while (curr != NULL) {
@@ -431,7 +447,7 @@ int main(void) {
 		switch (choice) {
 		case 1:
 			enter_parameters();
-			//print_allocated_blocks();
+			print_allocated_blocks();
 			break;
 
 		case 2:
